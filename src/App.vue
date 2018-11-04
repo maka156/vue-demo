@@ -11,6 +11,7 @@
 <script>
 import HelloWorld from './components/HelloWorld.vue'
 import Api from './Api.js'
+import countryList from './config.js'
 import Title from './components/Title.vue'
 import MainContainer from './components/MainContainer.vue'
 import Footer from './components/Footer.vue'
@@ -27,17 +28,19 @@ export default {
     return {
       'posts': [],
       'country': 'us',
+      'countryList': countryList,
       'idefault': 'https://bulma.io/images/placeholders/1280x960.png',
     }
   },
    created: function () {  
-    console.log(process.env);
-    this.getNews(this.country);
+
+    this.getNews(this.country); 
+    this.country = countryList[this.country];
 
     this.$eventHub.$on('editing', function (index) {
 
       this.getNews(index);
-      this.country = index;
+      this.country = countryList[index];
       
     }.bind(this));
         
